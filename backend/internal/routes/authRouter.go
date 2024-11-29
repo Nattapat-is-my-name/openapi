@@ -25,4 +25,5 @@ func (r *AuthRouter) InitializedGroup(app *gin.Engine) {
 		userAPI.POST("/login", r.controller.Login)
 		userAPI.POST("/register", r.controller.Register)
 	}
+
 }

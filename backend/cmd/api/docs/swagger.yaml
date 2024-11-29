@@ -1,0 +1,91 @@
+basePath: /auth
+definitions:
+  dtos.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dtos.LoginResponse:
+    properties:
+      email:
+        type: string
+      token:
+        type: string
+      username:
+        type: string
+    type: object
+  dtos.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is the main entry point for the API service.
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  termsOfService: http://swagger.io/terms/
+  title: My API
+  version: "1.0"
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticates a user and generates a token upon successful login
+      parameters:
+      - description: Login request payload
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully logged in and returned user details with token
+          schema:
+            $ref: '#/definitions/dtos.LoginResponse'
+      summary: Login
+      tags:
+      - Auth
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new user account and returns authentication token
+      parameters:
+      - description: Registration Details
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/dtos.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully registered and returned user details with token
+          schema:
+            $ref: '#/definitions/dtos.LoginResponse'
+      summary: Register a new user
+      tags:
+      - Auth
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
